@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Lindrose Family Cookbook</title>
+</head>
+<body onLoad="fbCheckPrivilege();">
+    <div class="jumbotron" style="text-align:center;">
+        <h1>Let's make a recipe!</h1>
+        <div class="container">
+            <form class="form-signin">
+                <button class="btn btn-lg btn-primary btn-block" type="button" onclick="redirect(1);">Cancel</button>
+            </form>
+            <form class="form-signin">
+                <input class="form-control" type="text" placeholder="Name" id="name">
+                <textarea class="form-control" type="text" placeholder="Ingredients *Please hit enter for a new step and refrain from commas*" id="ingredients"></textarea>
+                <textarea class="form-control" type="text" placeholder="Steps *Please hit enter for a new step and refrain from commas*" id="steps"></textarea>
+                <button class="btn btn-lg btn-primary btn-block" type="button" onclick="fbAddRecipe();">Add recipe</button>
+                <div class="alert alert-success" cols="1000" role="alert" style="margin-top: 30px; display: none;" id="successMessage">
+                    <strong>Success!</strong><br>
+                    <small id="success"></small>
+                </div>
+                <div class="alert alert-danger" role="alert" style="margin-top: 30px; display: none;" id="errorMessage">
+                    <strong>Hold up!</strong><br>
+                    <small id="error"></small>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
+<script src="js/bootstrap.min.js"></script>
+<script src='js/myscripts.js'></script>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/mycss.css" rel="stylesheet">
+</body>
+</html>

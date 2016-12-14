@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Lindrose Family Cookbook</title>
+</head>
+<body>
+    <div class="jumbotron">
+        <h1 style="text-align:center;">Lindrose Family Cookbook</h1>
+        <div class="container">
+            <form class="form-signin">
+                <input class="form-control" type="email" placeholder="Email" id="email">
+                <input class="form-control" type="password" placeholder="Password" id="password">
+                <input class="form-control" type="text" placeholder="Name *Only for registration*" id="name">
+                <div class="btn-group btn-group-justified" role="group" style="margin-top: 3%;">
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-lg btn-primary btn-block" type="button" onclick="fbLogin();">Login</button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-lg btn-primary btn-block" type="button" onclick="fbRegister();">Register</button>
+                    </div>
+                </div>
+                <div style="margin-top: 3%; display: none;" id="reset">
+                    <button class="btn btn-lg btn-primary btn-block" type="button" onclick="fbReset();">Reset password</button>
+                </div>
+                <div class="alert alert-success" role="alert" style="margin-top: 30px; display: none;" id="successMessage">
+                    <strong>Success!</strong><br>
+                    <small id="success"></small>
+                </div>
+                <div class="alert alert-danger" role="alert" style="margin-top: 30px; display: none;" id="errorMessage">
+                    <strong>Hold up!</strong><br>
+                    <small id="error"></small>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
+<script src="js/bootstrap.min.js"></script>
+<script src='js/myscripts.js'></script>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/mycss.css" rel="stylesheet">
+</body>
+</html>

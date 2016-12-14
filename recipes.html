@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Lindrose Family Cookbook</title>
+</head>
+<body onLoad="fbCheck();">
+    <div class="jumbotron" style="text-align:center;">
+        <h1 id="header">Welcome ...</h1>
+        <div class="container">
+            <form class="form-signin">
+                <button class="btn btn-lg btn-primary btn-block" type="button" onclick="gotoAdd();" id="add">Add recipe</button>
+                <button class="btn btn-lg btn-primary btn-block" type="button" onclick="fbLogout();">Log out</button>
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <table class="table table-striped table-condensed table-responsive table-hover" id="recipes" style="background-color: #ffffff;"></table>
+    </div>
+    
+<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
+<script src="js/bootstrap.min.js"></script>
+<script src='js/myscripts.js'></script>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/mycss.css" rel="stylesheet">
+</body>
+</html>
