@@ -14,19 +14,19 @@ function errorMessage(message) {
 function redirect(location) {
     switch (location) {
         case 0:
-            window.location.replace("http://www.kirinpatel.com/portfolio/2");
+            window.location.replace("./index.html");
             break;
         case 1:
-            window.location.replace("http://www.kirinpatel.com/portfolio/2/recipes.html");
+            window.location.replace("./recipes.html");
             break;
         case 2:
-            window.location.replace("http://www.kirinpatel.com/portfolio/2/add.html");
+            window.location.replace("./add.html");
             break;
         case 3:
-            window.location.replace("http://www.kirinpatel.com/portfolio/2/edit.html");
+            window.location.replace("./edit.html");
             break;
         default:
-            window.location.replace("http://www.kirinpatel.com/portfolio/2");
+            window.location.replace("./index.html");
     }
 }
 
@@ -36,6 +36,21 @@ function gotoAdd() {
         ref.on("value", function(snapshot) {
             if(snapshot.child("users").child(authData.uid).child("WRITE").val() === true) {
                 redirect(2);
+            } else {
+                redirect(1);
+            }
+        });
+    } else {
+        redirect(0);
+    }
+}
+
+function gotoEdit(recipeID) {
+    var authData = ref.getAuth();
+    if (authData) {
+        ref.on("value", function(snapshot) {
+            if(snapshot.child("users").child(authData.uid).child("WRITE").val() === true) {
+                redirect(3);
             } else {
                 redirect(1);
             }
@@ -140,8 +155,7 @@ function fbCheck(JQuery) {
                 })
                 table = table + "</td>";
                 if (authData.uid == snapshot.child("users").child(childSnapshot.child("UID").val()).key()) {
-                    //table = table + "<td><button class=\"btn btn-lg btn-primary btn-block disabled\" type=\"button\" onclick=\"redirect(3);\">Edit</button></td></tr>";
-                    table = table + "<td><button class=\"btn btn-lg btn-primary btn-block disabled\" type=\"button\">Edit</button></td></tr>";
+                    table = table + "<td><button class=\"btn btn-lg btn-primary btn-block\" type=\"button\" onclick=\"gotoEdit(" + snapshot.val() + ");\" id=\"add\">Edit</button></td></tr>";
                 } else {
                     table = table + "<td>" + uid + "</td></tr>";
                 }
