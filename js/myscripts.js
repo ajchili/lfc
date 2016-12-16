@@ -1,5 +1,6 @@
 var ref = new Firebase('https://lindrose-fcb.firebaseio.com/');
 var errors = 0;
+var title;
 
 function successMessage(message) {
     $('#success').html(message);
@@ -45,12 +46,12 @@ function gotoAdd() {
     }
 }
 
-function gotoEdit(recipeID) {
+function gotoEdit() {
     var authData = ref.getAuth();
     if (authData) {
         ref.on("value", function(snapshot) {
             if(snapshot.child("users").child(authData.uid).child("WRITE").val() === true) {
-                redirect(3);
+                window.location.replace("./edit.html?recipeID=" + title);
             } else {
                 redirect(1);
             }
@@ -135,6 +136,7 @@ function fbCheck(JQuery) {
             var table = "<tr><th>Name</th><th>Ingredients</th><th>Steps</th><th>Uploader</th>";
             snapshot.child("recipes").forEach(function(childSnapshot) {
                 var uid = snapshot.child("users").child(childSnapshot.child("UID").val()).child("NAME").val();
+                title = childSnapshot.key();
                 if (authData.uid == snapshot.child("users").child(childSnapshot.child("UID").val()).key()) {
                     table = table + "<tr class=\"success\"><td>" + childSnapshot.child("NAME").val() + "</td>";
                 } else {
@@ -155,7 +157,7 @@ function fbCheck(JQuery) {
                 })
                 table = table + "</td>";
                 if (authData.uid == snapshot.child("users").child(childSnapshot.child("UID").val()).key()) {
-                    table = table + "<td><button class=\"btn btn-lg btn-primary btn-block\" type=\"button\" onclick=\"gotoEdit(" + snapshot.val() + ");\" id=\"add\">Edit</button></td></tr>";
+                    table = table + "<td><button class=\"btn btn-lg btn-primary btn-block\" type=\"button\" onclick=\"gotoEdit();\" id=\"add\">Edit</button></td></tr>";
                 } else {
                     table = table + "<td>" + uid + "</td></tr>";
                 }
@@ -236,8 +238,64 @@ function fbAddRecipe(JQuery) {
     }
 }
 
-function fbEdit(JQuery) {
-    
+function fbLoadEdit(JQuery) {
+    var authData = ref.getAuth();
+    if (authData) {
+        var title = window.location.search.replace("?recipeID=", "");
+        var ingredients = "";
+        var steps = "";
+        $('#name').val(title);
+        ref.on("value", function(snapshot) {
+            snapshot.child("recipes").child(title).child("INGREDIENTS").forEach(function(childSnapshot) {
+                ingredients = ingredients + childSnapshot.val() + "\n";
+                $('#ingredients').val(ingredients);
+            });
+        });
+        ref.on("value", function(snapshot) {
+            snapshot.child("recipes").child(title).child("STEPS").forEach(function(childSnapshot) {
+                steps = steps + childSnapshot.val() + "\n";
+                $('#steps').val(steps);
+            });
+        });
+    } else {
+        redirect(0);
+    }
+}
+
+function fbEditRecipe(JQuery) {
+    var authData = ref.getAuth();
+    if (authData) {
+        var name = $('#name').val();
+        var text = $('#steps').val();
+        var steps = new Array();
+        steps = (text.split("\n"));
+        var text = $('#ingredients').val();
+        var ingredients = new Array();
+        ingredients = (text.split("\n"));
+        
+        ref.child("recipes").child(name).remove();
+        
+        ref.child("recipes").child(name).update({NAME : name});
+        ref.child("recipes").child(name).update({UID : authData.uid});
+        
+        var step = 1;
+        steps.forEach(function(value) {
+            if (value != "") {
+                ref.child("recipes").child(name).child("STEPS").child(step).set(value);
+                step++;
+            }
+        });
+        var step = 1;
+        ingredients.forEach(function(value) {
+            if (value != "") {
+                ref.child("recipes").child(name).child("INGREDIENTS").child(step).set(value);
+                step++;
+            }
+        });
+        redirect(1);
+    } else {
+        redirect(0);
+    }
 }
 
 function fbCheckPrivilege(JQuery) {
@@ -253,9 +311,9 @@ function fbCheckPrivilege(JQuery) {
     }
 }
 
-function fbResetPassword(JQuery) {
+function fbResetPassword(emailAddress) {
     ref.resetPassword({
-       email : "kirtdude@gmail.com" 
+       email : emailAddress
     }, function(error) {
         if (error === null) {
             console.log("Password reset email sent successfully!");

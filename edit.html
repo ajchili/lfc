@@ -4,12 +4,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Lindrose Family Cookbook</title>
 </head>
-<body onLoad="fbCheckPrivilege();">
+<body onLoad="fbLoadEdit();">
     <div class="jumbotron" style="text-align:center;">
         <h1>Let's change this recipe!</h1>
         <div class="container">
             <form class="form-signin">
                 <button class="btn btn-lg btn-primary btn-block" type="button" onclick="redirect(1);">Cancel</button>
+            </form>
+            <form class="form-signin">
+                <input class="form-control" type="text" placeholder="Name" id="name">
+                <textarea class="form-control" type="text" placeholder="Ingredients *Please hit enter for a new step and refrain from commas*" id="ingredients" style="margin-top: 1em;"></textarea>
+                <textarea class="form-control" type="text" placeholder="Steps *Please hit enter for a new step and refrain from commas*" id="steps" style="margin-top: 1em;"></textarea>
+                <button class="btn btn-lg btn-primary btn-block" type="button" onclick="fbEditRecipe();" style="margin-top: 1em;">Update recipe</button>
+                <div class="alert alert-success" cols="1000" role="alert" style="margin-top: 30px; display: none;" id="successMessage">
+                    <strong>Success!</strong><br>
+                    <small id="success"></small>
+                </div>
+                <div class="alert alert-danger" role="alert" style="margin-top: 30px; display: none;" id="errorMessage">
+                    <strong>Hold up!</strong><br>
+                    <small id="error"></small>
+                </div>
             </form>
         </div>
     </div>
