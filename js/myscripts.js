@@ -262,6 +262,17 @@ function fbLoadEdit(JQuery) {
     }
 }
 
+function fbDeleteRecipe(Jquery) {
+    var authData = ref.getAuth();
+    if (authData) {
+        var name = $('#name').val();
+        ref.child("recipes").child(name).remove();
+        redirect(1);
+    } else {
+        redirect(0);
+    }
+}
+
 function fbEditRecipe(JQuery) {
     var authData = ref.getAuth();
     if (authData) {
